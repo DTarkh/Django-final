@@ -45,4 +45,5 @@ def login_user(request):
     return Response({
         'refresh': str(refresh),
         'access': str(refresh.access_token),
+        'username': user.username
     })
