@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, Category
+from .serializers import ProductSerializer, CategorySerializer
 
 
 
@@ -23,6 +23,7 @@ def product_list(request):
         query_set = query_set.filter(title__icontains=product_title)
 
     if category:
+        # category_ids = category.split(",")  # Split the comma-separated string into a list
         query_set = query_set.filter(category__id__in=category)
 
     if min_price and max_price:
@@ -52,3 +53,5 @@ def product_detail(request,id):
     product = get_object_or_404(Product, pk=id)
     serialized_products = ProductSerializer(product)
     return Response(serialized_products.data)
+
+

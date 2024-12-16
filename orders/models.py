@@ -20,3 +20,17 @@ class CartItem(models.Model):
     def total(self):
         return Decimal(self.quantity * self.product.price if self.product else Decimal(0.00))
 
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def total(self):
+        return Decimal(self.quantity * self.product.price if self.product else Decimal(0.00))

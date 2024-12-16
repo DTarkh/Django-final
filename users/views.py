@@ -1,9 +1,9 @@
-# from django.shortcuts import render
-# from rest_framework_simplejwt.views import TokenObtainPairView
-# from .serializers import CustomTokenObtainSerializer
 
-# class CustomTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = CustomTokenObtainSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainSerializer
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainSerializer
 
 
 from django.contrib.auth.models import User
