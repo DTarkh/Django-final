@@ -20,8 +20,12 @@ class OrderView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        order, _ = Order.objects.get_or_create(user=request.user)
-        serializer = OrderSerializer(order)
+        # Retrieve all orders for the authenticated user
+        orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+        # Serialize the orders (set `many=True` since there are multiple orders)
+        serializer = OrderSerializer(orders, many=True)
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
